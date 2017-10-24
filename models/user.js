@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-//Need bcryptjs for hashing password
+var bcrypt = require('bcrypt');
+
 var UserSchema =  mongoose.Schema({
   local: {
     username: {
@@ -18,5 +19,14 @@ var UserSchema =  mongoose.Schema({
 });
 
 //Will Add function to hash password and compare password later
+var saltRounds = 10;
+var salt = bcrypt.genSaltSync(saltRounds)
+UserSchema.methods.genHash = function(password){
+  return bcrypt.hashSync(password, salt);
+}
+
+UserSchema.methods.validPassword = function(password){
+  return bcrypt.compareSync(password, this.local.password);
+}
 
 var User = module.exports = mongoose.model('user', UserSchema);
