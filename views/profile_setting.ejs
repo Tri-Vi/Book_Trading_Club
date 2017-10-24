@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<%- include ./partials/head %>
+<body>
+  <% include ./partials/navbar %>
+  <% if(message.length > 0) { %>
+    <div class="alert alert-dismissible alert-warning container mt-2">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4>Warning!</h4>
+      <p><%= messsage %></p>
+    </div>
+  <% }%>
+  <div class="container mt-3" id="settingForm">
+    <form action="/profile/setting/<%= user._id %>" method="post">
+      <h2>Update Profile</h2>
+      <div class="form-group has-warning">
+        <label for="username">Username</label>
+        <input type="text" id="settingFormUsernameTxt" class="form-control" name="username" placeholder="<%= user.local.username %>" required>
+      </div>
+      <div class="form-group has-warning">
+        <label for="email">Email</label>
+        <input type="email" id="settingFormEmailTxt" class="form-control" name="email" required>
+      </div>
+      <div class="form-group has-warning">
+        <label for="username">Password</label>
+        <input type="password" id="settingFormPasswordTxt" class="form-control" name="password" required>
+      </div>
+      <input type="submit" class="btn btn-primary" value="Update Profile">
+    </form>
+  </div>
+  <%- include ./partials/footer %>
+  <%- include ./partials/script %>
+
+</body>

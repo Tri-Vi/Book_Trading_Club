@@ -60,6 +60,8 @@ require('./config/passport.js')(passport);
 // Route
 var auth = require('./routes/auth.js');
 app.use('/auth', auth);
+var profile = require('./routes/profile.js');
+app.use('/profile', profile);
 
 // App start
 app.get('/', function(req, res){
