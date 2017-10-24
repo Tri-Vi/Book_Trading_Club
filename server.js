@@ -13,6 +13,7 @@ var flash = require('connect-flash');
 var favicon = require('serve-favicon')
 var path = require('path');
 var port = process.env.PORT || 3000;
+var books = require('google-books-search');
 var app = express();
 
 /* ****************************************** */
@@ -56,6 +57,8 @@ require('./config/passport.js')(passport);
 
 /* ****************************************** */
 
+//BOOK API 
+var option = require('./config/bookAPI.js');
 
 // Route
 var auth = require('./routes/auth.js');
@@ -65,8 +68,36 @@ app.use('/profile', profile);
 
 // App start
 app.get('/', function(req, res){
-  res.render('home', {title: 'Home'});
+  books.search('Web Development', {
+    field: "title",
+    offset: 0,
+    limit: 9,
+    type: 'books',
+    order: 'relevance',
+    lang: 'en'
+  }, function(error, results, apiResponse){
+    if(error){
+      res.send(error);
+    } else {
+      res.render('home', {
+        title: "Home",
+        books: results
+      })
+    }
+  })
 });
+
+//Testing Book API
+app.get('/api', function(req, res){
+  books.search('Web Development', option, function(error, results, apiResponse){
+    if(!error){
+      res.send(results);
+    } else {
+      console.log(error);
+    }
+  })
+});
+
 app.listen(port, function(err){
   if(err){
     console.log(err);

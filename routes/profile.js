@@ -37,7 +37,7 @@ router.post('/setting/:id', isLoggedIn, function(req, res){
       res.flash('settingMessage', 'There is an error. Please check your input or try again later!');
       res.redirect('/');
     }
-    res.send(JSON.stringify(user));
+    res.redirect('/profile');
   })
 });
 
