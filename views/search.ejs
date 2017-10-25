@@ -12,7 +12,16 @@
                     <div class="card-block">
                       <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                       <% if(user) { %>
-                        <a href="/profile" class="card-link btn btn-primary btn-block" target="_blank">Add Book</a>                        
+                        <form action="/profile/addBook" method="post">
+                          <input type="hidden" name="book_id" value="<%= book.id %>">
+                          <input type="hidden" name="book_title" value="<%= book.title %>">
+                          <input type="hidden" name="book_authors" value="<%= book.authors %>">
+                          <input type="hidden" name="book_publisher" value="<%= book.publisher %>">
+                          <input type="hidden" name="book_description" value="<%= book.description %>">
+                          <input type="hidden" name="book_link" value="<%= book.link %>">
+                          <input type="hidden" name="book_imageUrl" value="<%= book.thumbnail %>">
+                          <input type="submit" class="card-link btn btn-primary btn-block" value="Add Book">
+                        </form>                       
                       <% } else { %>
                         <a href="/auth/login" class="card-link btn btn-primary btn-block" target="_blank">Login To Add Book</a>
                       <% } %>
