@@ -14,14 +14,14 @@
               <li class="nav-item active">
                 <a class="nav-link" href="/about">About</a>
               </li>
+              <form class="form-inline my-2 my-lg-0" action="/search" method="get">
+                <input class="form-control mr-sm-2" type="text" placeholder="Book Title" name="title">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
             </ul>
       
             <ul class="navbar-nav navbar-right">
               <% if (!user) { %>
-                <form class="form-inline my-2 my-lg-0" action="/search" method="get">
-                  <input class="form-control mr-sm-2" type="text" placeholder="Book Title" name="title">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
                 <li class="nav-item active">
                     <a class="nav-link" href="/auth/login">Log in <span class="sr-only">(current)</span></a>
                   </li>
@@ -29,10 +29,6 @@
                     <a class="nav-link" href="/auth/signup">Sign up</a>
                   </li>
               <% } else { %>
-                <form class="form-inline my-2 my-lg-0">
-                  <input class="form-control mr-sm-2" type="text" placeholder="Search Book by Title">
-                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
                   <li class="nav-item active">
                       <a class="nav-link" href="/profile">Welcome <span><%=user.local.username %></span></a>
                   </li>

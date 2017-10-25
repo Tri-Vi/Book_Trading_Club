@@ -89,7 +89,7 @@ app.get('/', function(req, res){
 
 //Testing Book API
 app.get('/api', function(req, res){
-  books.search('Web Development', option, function(error, results, apiResponse){
+  books.search('Monkey', option, function(error, results, apiResponse){
     if(!error){
       res.send(results);
     } else {
@@ -99,9 +99,28 @@ app.get('/api', function(req, res){
 });
 
 app.get('/search', function(req, res){
-  res.render('search', {
-    title: 'Search Book'
+  var title = req.query.title;
+  //console.log(title);
+  books.search(title, {
+    field: "title",
+    offset: 0,
+    limit: 40,
+    type: 'books',
+    order: 'relevance',
+    lang: 'en'
+  }, function(error, results, apiResponse){
+    if(!error){
+      res.render('search', {
+        title: 'Search Book',
+        books: results
+      })
+    } else {
+      console.log(error);
+      res.status(404).send('File Not Found!');
+    }
   })
+
+  
 });
 
 app.listen(port, function(err){

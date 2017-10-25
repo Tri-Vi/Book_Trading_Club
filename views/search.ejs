@@ -1,15 +1,28 @@
 <DOCTYPE html>
   <%- include ./partials/head %>
-  <body>
+  <body style="background-color:rgb(212, 212, 212);">
     <%- include ./partials/navbar %>
-    <div class="jumbotron">
-      <div class="container text-center">
-          <h1 class="display-3">Welcome to Book Trading Club</h1>
-          <p>This is a fullstack application that you can search the book you want and made a book trading request with other peers</p>
-          <p><a class="btn btn-primary btn-lg" href="/search">Search for Books</a></p>
-      </div>
-      
+    <div class="container">
+        <div class="row mt-4 mb-4">
+            <% books.forEach(function(book){ %>
+              <div class="col-md-3 mb-4">
+                  <div class="card">
+                    <h6 class="card-header"><%= book.title %></h6>
+                    <img class="center-block mt-4" style="height: 168px; width: 128px; display: block;" src="<%= book.thumbnail %>" alt="Card image">
+                    <div class="card-block">
+                      <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                      <% if(user) { %>
+                        <a href="/profile" class="card-link btn btn-primary btn-block" target="_blank">Add Book</a>                        
+                      <% } else { %>
+                        <a href="/auth/login" class="card-link btn btn-primary btn-block" target="_blank">Login To Add Book</a>
+                      <% } %>
+                    </div>
+                  </div>
+              </div>  
+            <% }) %>
+          </div>
     </div>
+    
     
     <br>
     <!-- Footer -->
