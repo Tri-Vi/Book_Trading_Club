@@ -7,3 +7,9 @@
   margin-right: auto;
 }
 
+.jumbotron {
+  background-image: url('/img/jumbotron_bg_1.jpg');
+  background-size: cover;
+  background-position: 0% 55%;
+}
+

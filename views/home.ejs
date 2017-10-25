@@ -6,7 +6,17 @@
       <div class="container text-center">
           <h1 class="display-3">Welcome to Book Trading Club</h1>
           <p>This is a fullstack application that you can search the book you want and made a book trading request with other peers</p>
-          <p><a class="btn btn-primary btn-lg" href="#">Learn more</a></p>
+          <!-- <p><a class="btn btn-primary btn-lg" href="/search">Search for Books</a></p> -->
+          <form action="/search" method="get">
+            <div class="form-group">
+              <div class="input-group col-lg-8 offset-lg-2">
+                <input type="text" class="form-control" placeholder="Enter Book Title">
+                <span class="input-group-btn">
+                  <button class="btn btn-success" type="submit">Search</button>
+                </span>
+              </div>
+            </div>
+          </form>
       </div>
       
     </div>

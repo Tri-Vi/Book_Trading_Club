@@ -98,6 +98,12 @@ app.get('/api', function(req, res){
   })
 });
 
+app.get('/search', function(req, res){
+  res.render('search', {
+    title: 'Search Book'
+  })
+});
+
 app.listen(port, function(err){
   if(err){
     console.log(err);
