@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
+var Book = require('./book.js');
+var Schema =  mongoose.Schema;
 
 var UserSchema =  mongoose.Schema({
   local: {
@@ -14,7 +16,11 @@ var UserSchema =  mongoose.Schema({
     password: {
       type: String,
       required: true
-    }
+    },
+    addedBooks: [{
+      type: Schema.Types.ObjectId, 
+      ref: 'Book'
+    }]
   }
 });
 
