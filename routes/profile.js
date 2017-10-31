@@ -103,17 +103,39 @@ router.post('/addBook',isLoggedIn, function(req,res){
         res.redirect('/profile');
       })
     })
-    // User.findByIdAndUpdate(req.user._id,{
-    //   $push: {addedBooks: newBook._id}
-    // },{new: true}, function(err, user){
-    //   if(err){
-    //     console.log(err);
-    //     return;
-    //   }
-    //   res.send(user);
-    // })
   })
 });
+
+//DELETE BOOK FROM THE PROFILE
+router.post('/removeBook/:bookID', isLoggedIn, function(req, res){
+  var book_id = req.params.bookID;
+  // Find book with book_id from Book Collection
+  // Remove that book from Book Collection
+  // Find book with book_id from 
+  User.findById(req.user._id, function(err, user){
+    if(err){
+      console.log(err);
+      return;
+    }
+    var bookIndex = user.local.addedBooks.indexOf(book_id);
+    user.local.addedBooks.splice(bookIndex, 1);
+    user.save(function(err){
+      if(err){
+        console.log(err);
+        return;
+      }
+      
+      //Search book in book collection and remove
+      Book.findByIdAndRemove(book_id, function(err, book){
+        if(err){
+          console.log(err);
+          return;
+        }
+        res.redirect('/profile');
+      })
+    })
+  })
+}); 
 
 
 //LOGIN FUNCTION

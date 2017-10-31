@@ -30,8 +30,12 @@
                           <td><img src="<%= book.book_imageUrl%>" alt=""></td>
                           <td><%= book.book_publisher %></td>
                           <td>
-                            <a href="/profile/removeBook/<%= book._id %>" class="btn btn-primary">Remove</a> &nbsp;
-                            <a href="/profile/trade/<%= book._id%>" class="btn btn-success">Trade</a>
+                            <form action="/profile/removeBook/<%= book._id %>" method="post">
+                              <input type="submit" class="btn btn-primary btn-block" value="Remove">
+                            </form>&nbsp;
+                            <form action="/profile/trade/<%= book._id%>" method="">
+                                <input type="submit" class="btn btn-success btn-block" value="Trade">
+                            </form>    
                           </td>
                         </tr>
                       <% }) %>
