@@ -65,6 +65,8 @@ var auth = require('./routes/auth.js');
 app.use('/auth', auth);
 var profile = require('./routes/profile.js');
 app.use('/profile', profile);
+var trade = require('./routes/trade.js');
+app.use('/trade', trade);
 
 // App start
 app.get('/', function(req, res){
