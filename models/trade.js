@@ -1,15 +1,29 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var User = require('./user.js');
+var Book = require('./book.js');
+
 var TradeSchema = mongoose.Schema({
-  book_id: String,
-  book_title: String,
-  book_authors: [String],
-  book_publisher: String,
-  book_description: String,
-  book_link: String,
-  book_imageUrl: String,
-  book_owner: {
-    type: Schema.Types.ObjectId,
+  from: {
+    type: Schema.Types.ObjectId, 
     ref: 'User'
+  },
+  to: {
+    type: Schema.Types.ObjectId, 
+    ref: 'User'
+  },
+  book: {
+    type: Schema.Types.ObjectId, 
+    ref: 'Book'
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'approved', 'rejected'],
+    default: 'pending'
+  }
+  createAt: {
+    type: Date,
+    default: Date.now
   }
 });
 
