@@ -17,7 +17,7 @@ router.get('/signup', function(req,res){
 });
 
 router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: '/auth/login',
+  successRedirect: '/auth/login', // redirect to login after sign up
   failureRedirect: '/auth/signup',
   failfureFlash: true
 }));
