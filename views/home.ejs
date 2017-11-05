@@ -27,7 +27,7 @@
         <% books.forEach(function(book){ %>
           <div class="col-md-4 mb-4">
               <div class="card">
-                <h4 class="card-header"><%= book.title %></h4>
+                <h6 class="card-header"><%= book.title %></h6>
                 <div class="card-block mt-2">
                   <h6 class="card-title ml-4">ISBN_13: <span id="isbn"><%= book.industryIdentifiers[0].identifier %></span></h6>
                   <h6 class="card-subtitle text-muted ml-4">Publisher: <span><%= book.publisher %></span></h6>
