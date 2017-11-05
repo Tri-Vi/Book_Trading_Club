@@ -17,7 +17,7 @@ router.get('/signup', function(req,res){
 });
 
 router.post('/signup', passport.authenticate('local-signup', {
-  successRedirect: 'http://localhost:3000/',
+  successRedirect: '/auth/login',
   failureRedirect: '/auth/signup',
   failfureFlash: true
 }));
@@ -31,7 +31,7 @@ router.get('/login', function(req,res){
 });
 
 router.post('/login', passport.authenticate('local-login', {
-  successRedirect: 'http://localhost:3000/',
+  successRedirect: '/profile',
   failureRedirect: '/auth/login',
   failfureFlash: true
 }));
