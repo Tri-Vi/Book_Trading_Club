@@ -49,6 +49,8 @@ db.on('open', function(){
   console.log('Connected to DB');
 });
 var User = require('./models/user.js');
+var Book = require('./models/book.js');
+var Trade = require('./models/trade.js');
 
 
 /* ****************************************** */
@@ -67,6 +69,8 @@ var profile = require('./routes/profile.js');
 app.use('/profile', profile);
 var trade = require('./routes/trade.js');
 app.use('/trade', trade);
+var allbooks = require('./routes/allbooks.js');
+app.use('/allbooks', allbooks);
 
 // App start
 app.get('/', function(req, res){
@@ -90,15 +94,15 @@ app.get('/', function(req, res){
 });
 
 //Testing Book API
-app.get('/api', function(req, res){
-  books.search('Monkey', option, function(error, results, apiResponse){
-    if(!error){
-      res.send(results);
-    } else {
-      console.log(error);
-    }
-  })
-});
+// app.get('/api', function(req, res){
+//   books.search('Monkey', option, function(error, results, apiResponse){
+//     if(!error){
+//       res.send(results);
+//     } else {
+//       console.log(error);
+//     }
+//   })
+// });
 
 app.get('/search', function(req, res){
   var title = req.query.title;
@@ -121,8 +125,6 @@ app.get('/search', function(req, res){
       res.status(404).send('File Not Found!');
     }
   })
-
-  
 });
 
 app.listen(port, function(err){

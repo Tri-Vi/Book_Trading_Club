@@ -2,9 +2,12 @@ var express = require('express');
 var passport = require('passport');
 var router = express.Router();
 
-router.get('/', function(req, res){
-  res.send('hello from auth')
-});
+// router.get('/*', function(req, res){
+//   res.render('login', {
+//     title: "login",
+//     message: req.flash('loginMessage')
+//   });
+// });
 //Sign up
 router.get('/signup', function(req,res){
   res.render('signup', {

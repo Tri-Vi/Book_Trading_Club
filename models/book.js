@@ -13,6 +13,11 @@ var BookSchema = mongoose.Schema({
   book_owner: {
     type: Schema.Types.ObjectId,
     ref: 'User'
+  },
+  book_status: {
+      type: String,
+      enum: ['available','pending'],
+      default: 'available'
   }
 });
 

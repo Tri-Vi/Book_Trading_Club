@@ -6,23 +6,7 @@ var mongoose = require('mongoose');
 const saltRounds = 10;
 var User = require('../models/user');
 var Book = require('../models/book');
-
-//Test Route
-router.get('/test', isLoggedIn, function(req, res){
-  Book
-    .find({book_owner: req.user._id})
-    .exec(function(err, books){
-      if(err){
-        console.log(err);
-        return;
-      }
-      //console.log('There books are an array' + books);
-      res.render("test", {
-        title: "Test_Profile Page",
-        books: books
-      })
-    })
-});
+var Trade = require('../models/trade');
 
 //Profile Route
 router.get('/', isLoggedIn, function(req,res){
@@ -33,7 +17,7 @@ router.get('/', isLoggedIn, function(req,res){
       console.log(err);
       return;
     }
-    //console.log('There books are an array' + books);
+    
     res.render("profile", {
       title: "Profile Page",
       books: books
@@ -75,7 +59,6 @@ router.post('/setting/:id', isLoggedIn, function(req, res){
 //ADD BOOK TO PROFILE
 router.post('/addBook',isLoggedIn, function(req,res){
   var newBook = new Book();
-  //newBook._id = mongoose.Types.ObjectId(),
   newBook.book_id = req.body.book_id; // String
   newBook.book_title = req.body.book_title; // String
   newBook.book_authors = req.body.book_authors; // Array
@@ -137,6 +120,72 @@ router.post('/removeBook/:bookID', isLoggedIn, function(req, res){
   })
 }); 
 
+//Trade books
+router.post('/trade/:bookID', isLoggedIn, function(req, res){
+  var book_id = req.params.bookID;
+  var current_user = req.user._id;
+  Book
+    .findById(book_id)
+    .populate({
+      path: 'book_owner',
+      model: 'user'
+    })
+    .exec(function(err, book){
+      var bookOwner = book.book_owner._id;
+      // If the requester is the current user -> Flash A Message "Bad Request"
+      if(current_user.equals(bookOwner)){
+        req.flash('tradeMessage', 'Bad Request');
+        res.redirect('/allbooks');
+      } else {
+
+        //1. Trade Collection looks up in database 
+        //2. Find if trade is already existed.
+        Trade
+          .findOne({
+            from: current_user,
+            to: bookOwner,
+            book: book._id,
+            status: 'pending'
+          }, function(err, trade){
+            if(err){
+              console.log(err);
+              return;
+            }
+            if(trade){
+              //3. If existed, flash message and redirect to allbooks page
+              console.log('You already submited trade request to the book owner');
+              req.flash('tradeMessage', 'You already submited trade request to the book owner');
+              res.redirect('/allbooks');
+            } else {
+              //4, If not existed, save new trade request to trade collection
+              //Create a new trade request 
+              var newTrade = new Trade();
+              newTrade.from = current_user;
+              newTrade.to = bookOwner;
+              newTrade.book = book;
+              
+              //Save new trade request
+              newTrade.save(function(err){
+                if(err){
+                  console.log(err);
+                  return;
+                }
+                //Change Book status from available to pending
+                book.book_status = "pending";
+                //Save new book status
+                book.save(function(err){
+                  if(err){
+                    console.log(err);
+                  }
+                  req.flash('tradeMessage', 'Good Request');
+                  res.redirect('/allbooks');
+                })
+              })
+            }
+          })
+      }
+    })
+});
 
 //LOGIN FUNCTION
 function isLoggedIn (req,res, next){

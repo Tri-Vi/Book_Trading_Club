@@ -24,13 +24,14 @@ var UserSchema =  mongoose.Schema({
   }
 });
 
-//Will Add function to hash password and compare password later
+//Hashing Password Method
 var saltRounds = 10;
 var salt = bcrypt.genSaltSync(saltRounds)
 UserSchema.methods.genHash = function(password){
   return bcrypt.hashSync(password, salt);
 }
 
+//Comparing input password with database password
 UserSchema.methods.validPassword = function(password){
   return bcrypt.compareSync(password, this.local.password);
 }
