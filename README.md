@@ -26,18 +26,18 @@ The logic of the application is described below:
 ## How did I build this application?
 The application is divided into 3 parts:
   1. Backend:
-      - **bcrypt** : hash user's password when signing up and compare hashed password
-      - **body-parser**: parse the input fields from forms
-      - **connect-flash** : raise error messages when errors occur
-      - **cookie-parser** : parse cookie
+      - **bcrypt**: hashing user's password when signing up and compare hashed password
+      - **body-parser**: parsing form input
+      - **connect-flash** : raising error messages when errors occur
+      - **cookie-parser** : parsing cookie
       - **ejs** : view engine
-      - **express** : control routes
+      - **express** : routing middleware
       - **express-session** : session
       - **helmet** : secure express app by setting various HTTP header
       - **mongoose** : database 
       - **morgan**: HTTP request logger middleware
-      - **passport**: Authentication
-      - **passport-local** Authentication for Local Strategy
+      - **passport**: Authentication Middleware
+      - **passport-local**: Authentication Strategy
   2. Frontend:
       - **Bootstrap**
   3. Book API
